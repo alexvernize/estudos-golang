@@ -1,0 +1,104 @@
+package main
+
+import "fmt"
+
+func main() {
+	/*
+	   PONTEIROS EM GO
+
+	   Ponteiros armazenam endereços de memória de valores.
+	   Eles permitem:
+	   - Acessar e modificar valores indiretamente
+	   - Trabalhar com grandes estruturas de forma eficiente
+	   - Compartilhar dados entre funções
+	*/
+
+	// 1. DECLARAÇÃO BÁSICA
+	var x int = 10
+	var ptr *int // Declara um ponteiro para int (nil inicialmente)
+
+	ptr = &x // & obtém o endereço de memória de x
+	fmt.Println("\n1. Ponteiro básico:")
+	fmt.Println("Valor de x:", x)                // 10
+	fmt.Println("Endereço de x:", &x)            // 0xc0000180a8 (exemplo)
+	fmt.Println("Valor de ptr:", ptr)            // Mesmo endereço
+	fmt.Println("Valor apontado por ptr:", *ptr) // 10 (dereferenciação)
+
+	// 2. MODIFICANDO VALOR ATRAVÉS DO PONTEIRO
+	*ptr = 20 // Modifica o valor na memória apontada
+	fmt.Println("\n2. Após modificar via ponteiro:")
+	fmt.Println("Novo valor de x:", x)       // 20
+	fmt.Println("Novo valor via ptr:", *ptr) // 20
+
+	// 3. PONTEIRO ZERO VALUE (nil)
+	var ptrNil *int
+	fmt.Println("\n3. Ponteiro nil:")
+	fmt.Println("ptrNil é nil?", ptrNil == nil) // true
+	// *ptrNil = 10 // PANIC: tentar dereferenciar nil
+
+	// 4. NEW (CRIA NOVO PONTEIRO)
+	ptrNew := new(int) // Aloca memória e retorna ponteiro
+	*ptrNew = 30
+	fmt.Println("\n4. Ponteiro criado com new:")
+	fmt.Println("Valor:", *ptrNew) // 30
+	fmt.Println("Endereço:", ptrNew)
+
+	// 5. PONTEIROS COM STRUCTS
+	type Pessoa struct {
+		Nome  string
+		Idade int
+	}
+
+	p := Pessoa{"João", 30}
+	ptrPessoa := &p
+	fmt.Println("\n5. Ponteiro para struct:")
+	fmt.Println("Nome via ptr:", ptrPessoa.Nome) // Go faz deref automática
+	ptrPessoa.Idade = 31                         // Modificação direta
+	fmt.Println("Idade modificada:", p.Idade)    // 31
+
+	// 6. PONTEIROS EM FUNÇÕES
+	valor := 10
+	fmt.Println("\n6. Antes de incrementar:", valor)
+	incrementar(&valor)                          // Passa o endereço
+	fmt.Println("Depois de incrementar:", valor) // 11
+
+	// 7. PONTEIRO PARA PONTEIRO
+	a := 100
+	p1 := &a
+	p2 := &p1
+	fmt.Println("\n7. Ponteiro para ponteiro:")
+	fmt.Println("Valor de a:", a)      // 100
+	fmt.Println("Valor via p1:", *p1)  // 100
+	fmt.Println("Valor via p2:", **p2) // 100
+
+	// Modificando
+	**p2 = 200
+	fmt.Println("Valor modificado via p2:", a) // 200
+
+	// 8. PONTEIROS E SLICES
+	/*
+	   IMPORTANTE: Slices já contêm ponteiros para arrays subjacentes,
+	   então normalmente não usamos ponteiros para slices.
+	*/
+	slice := []int{1, 2, 3}
+	modificarSlice(slice)                        // Slice já é uma referência
+	fmt.Println("\n8. Slice modificado:", slice) // [100 2 3]
+}
+
+func incrementar(x *int) {
+	/*
+	   Recebe um ponteiro para int e incrementa o valor
+	   Como recebe o endereço, pode modificar o original
+	*/
+	*x++
+}
+
+func modificarSlice(s []int) {
+	/*
+	   Slices já contêm ponteiros para os dados,
+	   então modificações afetam o original
+	*/
+	if len(s) > 0 {
+		s[0] = 100
+	}
+}

@@ -1,0 +1,21 @@
+    Funções básicas: Declaração simples sem retorno
+
+    Parâmetros: Como receber valores na função
+
+    Retornos: Funções que devolvem valores
+
+    Múltiplos retornos: Uma das características marcantes de Go
+
+    Retornos nomeados: Melhora a documentação e legibilidade
+
+    Funções variádicas: Aceitam número variável de argumentos
+
+    Funções como valores: Podem ser atribuídas a variáveis
+
+    Closures: Funções anônimas que capturam variáveis do escopo
+
+    Métodos: Funções associadas a tipos (receivers)
+
+    Recursão: Funções que chamam a si mesmas
+
+    Função init: Executada automaticamente antes da main

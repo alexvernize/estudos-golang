@@ -1,0 +1,82 @@
+/*
+Analogia do Mundo Real
+
+Pense em uma fábrica de carros:
+
+    Struct = Projeto do carro (tem modelo, cor, ano)
+
+    Instância = Carro físico na concessionária
+
+    Métodos = O que o carro faz (ligar, acelerar, frear)
+
+    Construtor = A fábrica que monta o carro verificando todas as peças
+
+	Exemplo: Se a fábrica não tem rodas, não pode montar o carro. Assim, o construtor verifica se todas as peças estão disponíveis antes de montar o carro.
+
+	Exemplo: Se o carro não tem motor, não pode ligar. Assim, o método "ligar" verifica se o motor está presente antes de tentar ligar o carro.
+
+
+Explicação final:
+    Struct = Molde/forma dos seus dados
+
+        Define QUAIS informações guardar
+
+    Método = Habilidades/ações
+
+        Define O QUE pode fazer com esses dados
+
+    Construtor = Fábrica inteligente
+
+        Garante que os dados são criados CORRETAMENTE
+
+
+*/
+
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+type Bicicleta struct {
+	Marca         string
+	NumeroMarchas int
+	Cor           string
+}
+
+// Método
+func (b Bicicleta) Pedalar() string {
+	return fmt.Sprintf("Pedalando minha %s %s!", b.Marca, b.Cor)
+}
+
+// Construtor
+func NovaBicicleta(marca, cor string, marchas int) (*Bicicleta, error) {
+	if marca == "" {
+		return nil, errors.New("marca é obrigatória")
+	}
+	if marchas < 1 {
+		return nil, errors.New("deve ter pelo menos 1 marcha")
+	}
+
+	return &Bicicleta{
+		Marca:         marca,
+		NumeroMarchas: marchas,
+		Cor:           cor,
+	}, nil
+}
+
+func main() {
+	// Criando com construtor
+	minhaBike, err := NovaBicicleta("Caloi", "Vermelha", 18)
+	if err != nil {
+		panic(err)
+	}
+
+	// Usando método
+	fmt.Println(minhaBike.Pedalar()) // "Pedalando minha Caloi Vermelha!"
+
+	// Modificando
+	minhaBike.NumeroMarchas = 21
+	fmt.Printf("Agora tenho %d marchas!\n", minhaBike.NumeroMarchas)
+}
