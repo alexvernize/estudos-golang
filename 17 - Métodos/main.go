@@ -14,6 +14,16 @@ type usuario struct {
 	idade int
 }
 
+// Método com receiver por valor, está associado ao tipo usuario
+// O receiver (u usuario) aparece antes do nome do método
+// O receiver é um parâmetro especial que representa o objeto que está chamando o método
+// O nome do receiver pode ser qualquer coisa, mas é comum usar uma letra ou abreviação do tipo
+// O receiver é acessível dentro do método como se fosse um parâmetro normal
+// Isso significa que podemos usar o receiver para acessar os campos do struct
+// Isso é útil para encapsular comportamentos relacionados ao tipo
+// Nesse cado de alterar o valor do campo idade, o receiver é um ponteiro
+// Isso significa que o método pode modificar o valor original
+// Isso é útil quando queremos modificar o objeto original
 func (u *usuario) fazerAniversario() {
 	u.idade++
 }
