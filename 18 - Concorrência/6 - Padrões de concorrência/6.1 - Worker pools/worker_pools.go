@@ -1,6 +1,6 @@
 /*
-O worker pool funciona se você tivesse uma fila de tarefas a serem executadas
-e você tem vários wokers pegando itens dessa fila e executando essas tarefas
+O worker pool funciona como se você tivesse uma fila de tarefas a serem executadas
+e você teria vários wokers pegando itens dessa fila e executando essas tarefas
 de maneira independente e concorrente
 */
 package main
