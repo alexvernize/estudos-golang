@@ -4,6 +4,11 @@ package enderecos
 
 import "testing"
 
+type cenarioDeTeste struct {
+	enderecoInserido string
+	enderecoEsperado string
+}
+
 func TestTipoDeEndereco(t *testing.T) {
 	/*
 		// Testa se o tipo de endereço é "rua"
